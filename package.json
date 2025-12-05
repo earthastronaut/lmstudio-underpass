@@ -11,7 +11,11 @@
     "dev": "node --watch server.js",
     "generate-key": "node scripts/generate-api-key.js",
     "generate-key:save": "node scripts/generate-api-key.js --save",
-    "test": "node scripts/test-tunnel.js"
+    "test": "node scripts/test-tunnel.js",
+    "proxy:models": "node scripts/proxy-models.js",
+    "proxy:completions": "node scripts/proxy-completions.js",
+    "local:models": "node scripts/local-models.js",
+    "local:completions": "node scripts/local-completions.js"
   },
   "keywords": [
     "lm-studio",
