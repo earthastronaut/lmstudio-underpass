@@ -1,0 +1,33 @@
+{
+  "name": "lmstudio-underpass",
+  "version": "1.0.0",
+  "description": "Tunnel server with OpenAPI key validation for LM Studio",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "concurrently --names \"SERVER,TUNNEL\" --prefix-colors \"blue,green\" --kill-others --handle-input \"node server.js\" \"cloudflared tunnel run lmstudio-tunnel\"",
+    "start:server": "node server.js",
+    "start:tunnel": "cloudflared tunnel run lmstudio-tunnel",
+    "dev": "node --watch server.js",
+    "generate-key": "node scripts/generate-api-key.js",
+    "generate-key:save": "node scripts/generate-api-key.js --save",
+    "test": "node scripts/test-tunnel.js"
+  },
+  "keywords": [
+    "lm-studio",
+    "tunnel",
+    "proxy",
+    "openapi"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
