@@ -27,14 +27,37 @@ try {
     }
   });
 
-  const data = await response.json();
-  console.log(JSON.stringify(data, null, 2));
-  
   if (!response.ok) {
+    const errorText = await response.text();
+    let errorData;
+    try {
+      errorData = JSON.parse(errorText);
+    } catch {
+      errorData = { message: errorText };
+    }
+    console.error(`Error: HTTP ${response.status} ${response.statusText}`);
+    console.error(JSON.stringify(errorData, null, 2));
     process.exit(1);
   }
+
+  const data = await response.json();
+  console.log(JSON.stringify(data, null, 2));
 } catch (error) {
-  console.error('Error:', error.message);
+  if (error.code === 'ECONNREFUSED' || error.message.includes('ECONNREFUSED')) {
+    console.error(`Error: Cannot connect to server at ${url}`);
+    console.error('Make sure the server is running:');
+    console.error('  pnpm run start:server');
+    console.error('  or');
+    console.error('  pnpm start');
+  } else if (error.cause) {
+    console.error('Error:', error.message);
+    console.error('Cause:', error.cause.message || error.cause);
+  } else {
+    console.error('Error:', error.message);
+    if (error.stack) {
+      console.error(error.stack);
+    }
+  }
   process.exit(1);
 }
 

@@ -12,6 +12,8 @@
     "generate-key": "node scripts/generate-api-key.js",
     "generate-key:save": "node scripts/generate-api-key.js --save",
     "test": "node scripts/test-tunnel.js",
+    "test:remote": "node scripts/test-remote.js",
+    "test:remote:completions": "node scripts/test-remote-completions.js",
     "proxy:models": "node scripts/proxy-models.js",
     "proxy:completions": "node scripts/proxy-completions.js",
     "local:models": "node scripts/local-models.js",
